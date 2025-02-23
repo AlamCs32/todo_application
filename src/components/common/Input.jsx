@@ -1,9 +1,9 @@
 import React from 'react'
 import { Input as InputM } from "../ui/input"
 
-const Input = () => {
+const Input = ({ ...restProps }) => {
     return (
-        <div>Input</div>
+        <InputM {...restProps} />
     )
 }
 

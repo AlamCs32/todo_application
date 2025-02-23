@@ -10,9 +10,9 @@ import Login from './pages/auth/Login';
 import NotAuthorized from './pages/NotAuthorized';
 import NotFound from './pages/NotFound';
 import Signup from './pages/auth/Signup';
-import ForgetPassword from './pages/auth/ForgetPassword';
 import ResetPassword from './pages/auth/ResetPassword';
 import AuthLayout from './layouts/AuthLayout';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 const AppNavigation = () => {
     const { DASHBOARD_VIEW, PROFILE_VIEW } = usePermission();
@@ -70,7 +70,7 @@ const AppNavigation = () => {
                 <Route path='/' element={<AuthLayout />}>
                     <Route path='/login' element={<Login />} />
                     <Route path='/signup' element={<Signup />} />
-                    <Route path='/forget-password' element={<ForgetPassword />} />
+                    <Route path='/forgot-password' element={<ForgotPassword />} />
                     <Route path='/reset-password/:token' element={<ResetPassword />} />
                 </Route>
             </Route>

@@ -29,7 +29,7 @@ export const userApi = createApi({
         body: { oldPassword, password, confirmPassword },
       }),
     }),
-    forgetPassword: qb.mutation({
+    forgotPassword: qb.mutation({
       query: ({ email }) => ({
         url: `/forget-password`,
         method: "POST",
@@ -54,6 +54,6 @@ export const userApiAction = {
   signup: userApi.useSignupMutation,
   login: userApi.useLoginMutation,
   changePassword: userApi.useChangePasswordMutation,
-  forgetPassword: userApi.useForgetPasswordMutation,
+  forgotPassword: userApi.useForgotPasswordMutation,
   resetPassword: userApi.useResetPasswordMutation,
 };
