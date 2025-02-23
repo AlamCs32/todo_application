@@ -1,7 +1,7 @@
-import { createApi } from "@reduxjs/toolkit/query";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { apiServiceSlice } from "./apiServiceSlice";
 
-const userApi = createApi({
+export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: apiServiceSlice.baseQueryWithInterceptor,
   tagTypes: ["USER"],
@@ -11,16 +11,16 @@ const userApi = createApi({
         url: "/signup",
         method: "POST",
         body: { username, email, password },
-        invalidatesTags: ["USER"],
       }),
+      invalidatesTags: ["USER"],
     }),
     login: qb.mutation({
       query: ({ email, password }) => ({
         url: "/login",
         method: "POST",
         body: { email, password },
-        invalidatesTags: ["USER"],
       }),
+      invalidatesTags: ["USER"],
     }),
     changePassword: qb.mutation({
       query: ({ oldPassword, password, confirmPassword }) => ({

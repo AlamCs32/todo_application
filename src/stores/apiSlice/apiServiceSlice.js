@@ -26,10 +26,9 @@ apiServiceSlice.baseQueryWithRetry = retry(
 apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
   try {
     const result = await apiServiceSlice.baseQuery(args, api, extraOptions);
+    let toastMessage = "Oops, Something went wrong. Please try again later";
 
     if (result.error) {
-      let toastMessage = "Oops, Something went wrong. Please try again later";
-
       if (result.error.status === 401) {
         api.dispatch(resetAuthorization());
 
@@ -37,7 +36,7 @@ apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
         api.dispatch(
           addToast({
             title: TOAST_CONFIG.error.title,
-            description: result.error.data.message || toastMessage,
+            description: result.error.message || toastMessage,
             variant: TOAST_CONFIG.error.variant,
           })
         );
@@ -51,7 +50,7 @@ apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
       api.dispatch(
         addToast({
           title: TOAST_CONFIG.error.title,
-          message: toastMessage,
+          description: toastMessage,
           variant: TOAST_CONFIG.error.variant,
         })
       );
@@ -63,7 +62,7 @@ apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
       api.dispatch(
         addToast({
           title: TOAST_CONFIG.success.title,
-          message: result.data.message,
+          description: result.data.message,
           variant: TOAST_CONFIG.success.variant,
         })
       );
@@ -73,7 +72,7 @@ apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
     console.log("error", error);
     addToast({
       title: TOAST_CONFIG.error.title,
-      message: "Oops, Something went wrong. Please try again later",
+      description: "Oops, Something went wrong. Please try again later",
       variant: TOAST_CONFIG.error.variant,
     });
     return error;

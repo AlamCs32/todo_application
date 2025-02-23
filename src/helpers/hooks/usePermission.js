@@ -7,7 +7,7 @@ import { ACCESS_TYPES, ROLE_NAME } from "../constants/commonContants";
 const accessValidator = (userRole) => {
   return Object.entries(ACCESS_TYPES).reduce((finalP, [module, role]) => {
     finalP[module] =
-      userRole === ROLE_NAME.admin ? true : role.includes(userRole);
+      userRole === ROLE_NAME.user ? true : role.includes(userRole);
     return finalP;
   }, {});
 };

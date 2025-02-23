@@ -9,14 +9,18 @@ import { ProtectedRoute, PublicRoute } from './routes';
 import Login from './pages/auth/Login';
 import NotAuthorized from './pages/NotAuthorized';
 import NotFound from './pages/NotFound';
+import Signup from './pages/auth/Signup';
+import ForgetPassword from './pages/auth/ForgetPassword';
+import ResetPassword from './pages/auth/ResetPassword';
+import AuthLayout from './layouts/AuthLayout';
 
 const AppNavigation = () => {
-    const { DASHBOARD_VIEW } = usePermission();
+    const { DASHBOARD_VIEW, PROFILE_VIEW } = usePermission();
     const auth = useSelector(selectAuthState);
     const isAuthorized = auth?.isAuthorized;
 
     const routeConfig = getRouteConfig({
-        DASHBOARD_VIEW
+        DASHBOARD_VIEW, PROFILE_VIEW
     });
 
     const navigateToPath = () => {
@@ -29,6 +33,7 @@ const AppNavigation = () => {
         return path;
     };
 
+    // Render route Function
     const renderRoutes = (routes) => {
         return routes.map((route) => {
             const { path, element: Component, accessible, childrens } = route;
@@ -61,7 +66,13 @@ const AppNavigation = () => {
                     path='/'
                     element={<Navigate to={'/login'} replace />}
                 />
-                <Route path='/login' element={<Login />} />
+                {/* Auth Layout */}
+                <Route path='/' element={<AuthLayout />}>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/signup' element={<Signup />} />
+                    <Route path='/forget-password' element={<ForgetPassword />} />
+                    <Route path='/reset-password/:token' element={<ResetPassword />} />
+                </Route>
             </Route>
 
             {/* Protected Routes */}

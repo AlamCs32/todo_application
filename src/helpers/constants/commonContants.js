@@ -1,11 +1,12 @@
 export const ROLE_NAME = {
-  admin: "admin",
-  user: "user",
+  admin: "ADMIN",
+  user: "USER",
   teanent: "teanent",
 };
 
 export const ACCESS_TYPES = {
-  DASHBOARD_VIEW: [ROLE_NAME.admin],
+  DASHBOARD_VIEW: [ROLE_NAME.user],
+  PROFILE_VIEW: [ROLE_NAME.user],
 };
 
 export const TOAST_VARIANT = {
