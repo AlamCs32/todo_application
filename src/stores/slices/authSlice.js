@@ -7,6 +7,7 @@ const initialState = {
   isAuthorized: false,
   userId: null,
   role: "",
+  profile: "",
   accessToken: "",
   refreshToken: "",
 };
@@ -16,9 +17,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthorization: (state, action) => {
-      const { isAuthorized, userId, role, accessToken, refreshToken } =
+      const { profile, isAuthorized, userId, role, accessToken, refreshToken } =
         action.payload;
-
+      state.profile = profile;
       state.isAuthorized = isAuthorized;
       state.userId = userId;
       state.role = role;
@@ -40,6 +41,7 @@ export const authReducer = persistReducer(
       "isAuthorized",
       "userId",
       "role",
+      "profile",
       "accessToken",
       "refreshToken",
     ],

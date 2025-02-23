@@ -36,7 +36,7 @@ const todoApi = createApi({
         pageSize = 10,
       }) => {
         const params = { sortBy, sortType, pageNo, pageSize };
-        // Query Params
+        // Que                          ry Params
         if (dueDate) params.dueDate = dueDate;
         if (search) params.search = search;
         if (status && status !== "Total") params.status = status;
@@ -56,8 +56,8 @@ const todoApi = createApi({
     }),
     // Update Todo Details
     updateTodo: qb.mutation({
-      query: ({ title, description, dueDate, status }) => ({
-        url: "/todo",
+      query: ({ todoId, title, description, dueDate, status }) => ({
+        url: `/todo/:${todoId}`,
         method: "PUT",
         body: { title, description, dueDate, status },
       }),

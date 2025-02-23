@@ -1,6 +1,6 @@
 import { fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import { addToast } from "../slices/toastSlice";
-import { resetAuthorization } from "../slices/authSlice";
+import { resetAuthorization, selectAuthState } from "../slices/authSlice";
 import { localStore } from "../localStore";
 import { TOAST_CONFIG } from "@/helpers/constants/commonContants";
 import { appConstants } from "@/helpers/constants/appConfig";
@@ -9,10 +9,12 @@ const apiServiceSlice = {};
 
 apiServiceSlice.baseQuery = fetchBaseQuery({
   baseUrl: appConstants.apiBaseURL,
-  prepareHeaders: (headers) => {
-    const token = localStore.getToken();
+  prepareHeaders: (headers, { getState }) => {
+    const state = getState();
+    const user = selectAuthState(state);
+    const token = user?.accessToken || null;
     if (token) {
-      headers.set("Authorization", `${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
@@ -30,8 +32,6 @@ apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
 
     if (result.error) {
       if (result.error.status === 401) {
-        api.dispatch(resetAuthorization());
-
         localStore.resetToken();
         api.dispatch(
           addToast({
@@ -40,7 +40,7 @@ apiServiceSlice.baseQueryWithInterceptor = async (args, api, extraOptions) => {
             variant: TOAST_CONFIG.error.variant,
           })
         );
-        window.location = "/login";
+        api.dispatch(resetAuthorization());
       }
 
       if (result.error?.data?.message) {

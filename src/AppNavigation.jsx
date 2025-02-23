@@ -27,8 +27,8 @@ const AppNavigation = () => {
         let path = "/login";
         if (isAuthorized) {
             // get the first accessible route
-            const firstLoadPage = routeConfig.find(item => item.accessible)?.path;
-            path = firstLoadPage || "/dashboard";
+            // const firstLoadPage = routeConfig.find(item => item.accessible)?.path;
+            path = "/dashboard";
         }
         return path;
     };

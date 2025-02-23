@@ -33,6 +33,7 @@ const Login = () => {
                     isAuthorized: true,
                     userId: user.userId,
                     role: user.role,
+                    profile: user.profile,
                     accessToken,
                     refreshToken,
                 })
